@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerAlign — Career Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F8F6F1;
+  --surface: #FFFFFF;
+  --surface2: #F2EFE9;
+  --surface3: #EAE6DE;
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.18);
+  --text: #1A1714;
+  --text-muted: #6B6560;
+  --text-dim: #A09890;
+  --accent: #8B6914;
+  --accent-light: #C9A96E;
+  --accent2: #2C5282;
+  --accent3: #276749;
+  --danger: #C53030;
+  --success: #276749;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.06);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── BACKGROUND ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(201,169,110,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 100%, rgba(44,82,130,0.05) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── HEADER ─── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 3rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(248,246,241,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  animation: slideDown 0.6s ease both;
+}
+
+.logo-wrap { display: flex; align-items: center; gap: 0.75rem; }
+
+.logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(139,105,20,0.25);
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+
+.logo-text span { color: var(--accent); }
+
+.logo-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-center {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+
+.user-chip {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.9rem 0.35rem 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.user-chip:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
+
+.avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.icon-btn {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn:hover { border-color: var(--border-hover); color: var(--text); box-shadow: var(--shadow-md); }
+
+/* ─── PAGE WRAPPER ─── */
+.page {
+  position: relative;
+  z-index: 1;
+  padding-top: 70px;
+}
+
+/* ─── AUTH SCREEN ─── */
+#auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+  animation: fadeIn 0.8s ease both;
+}
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 6rem;
+  max-width: 1000px;
+  width: 100%;
+  align-items: center;
+}
+
+.auth-left {}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(139,105,20,0.07);
+  border: 1px solid rgba(139,105,20,0.18);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 2rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s ease-in-out infinite;
+}
+
+.auth-left h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.auth-left h1 em { font-style: italic; color: var(--accent); }
+.auth-left h1 strong { font-weight: 700; display: block; }
+
+.auth-left p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 400px;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
+.auth-stats { display: flex; gap: 2rem; }
+
+.stat { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ─── AUTH CARD ─── */
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+}
+
+.auth-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.auth-card-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  display: flex;
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 2rem;
+  gap: 4px;
+  border: 1px solid var(--border);
+}
+
+.tab {
+  flex: 1;
+  padding: 0.55rem;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.tab.active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.field-group { margin-bottom: 1.2rem; }
+
+.field-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.field-input::placeholder { color: var(--text-dim); }
+.field-input:focus {
+  border-color: rgba(139,105,20,0.4);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(139,105,20,0.08);
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--accent), #A07820);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(139,105,20,0.3);
+}
+
+.primary-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.primary-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(139,105,20,0.35); }
+.primary-btn:hover::after { opacity: 1; }
+.primary-btn:active { transform: translateY(0); }
+.primary-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.2rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.or-divider::before, .or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.google-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.75rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.google-btn:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); background: var(--surface2); }
+
+.google-svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.auth-error {
+  margin-top: 0.9rem;
+  padding: 0.7rem 1rem;
+  background: rgba(197,48,48,0.05);
+  border: 1px solid rgba(197,48,48,0.2);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  display: none;
+}
+
+/* ─── FORM SCREEN ─── */
+#form-screen {
+  display: none;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  animation: fadeIn 0.6s ease both;
+}
+
+.page-header {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header .eyebrow { margin-bottom: 1.2rem; }
+
+.page-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 0.8rem;
+  color: var(--text);
+}
+
+.page-header h1 em { font-style: italic; color: var(--accent); }
+
+.page-header p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+/* ─── HISTORY STRIP ─── */
+.history-bar {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.history-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-bottom: 0.8rem;
+}
+
+.history-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.history-pill {
+  padding: 0.3rem 0.8rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.history-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(139,105,20,0.04); }
+
+/* ─── FORM PANELS ─── */
+.form-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-panel:hover { border-color: rgba(139,105,20,0.2); box-shadow: var(--shadow-md); }
+
+.form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-light));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.form-panel:hover::before { opacity: 1; }
+
+.panel-num {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  user-select: none;
+}
+
+.panel-tag {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  background: rgba(139,105,20,0.07);
+  border: 1px solid rgba(139,105,20,0.15);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.panel-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.panel-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* ─── SELECT ─── */
+.styled-select-wrap { position: relative; }
+
+.styled-select {
+  width: 100%;
+  padding: 0.9rem 2.5rem 0.9rem 1.1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.styled-select:focus {
+  border-color: rgba(139,105,20,0.4);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(139,105,20,0.08);
+}
+
+.styled-select option { background: var(--surface); }
+
+.select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+/* ─── CHIPS ─── */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.chip {
+  padding: 0.5rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+  color: var(--text-muted);
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
+.chip:hover {
+  border-color: rgba(139,105,20,0.3);
+  color: var(--accent);
+  background: rgba(139,105,20,0.04);
+}
+
+.chip.selected {
+  background: rgba(139,105,20,0.08);
+  border-color: rgba(139,105,20,0.4);
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(139,105,20,0.1);
+}
+
+.validation-msg {
+  margin-top: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--danger);
+  display: none;
+}
+
+/* ─── CTA BUTTON ─── */
+.cta-wrap {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cta-btn {
+  flex: 1;
+  padding: 1.1rem 2rem;
+  background: linear-gradient(135deg, var(--accent), #A07820);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(139,105,20,0.3);
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(139,105,20,0.35); }
+.cta-btn:hover::before { opacity: 1; }
+
+.cta-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+}
+
+/* ─── LOADING ─── */
+#loading {
+  display: none;
+  min-height: calc(100vh - 70px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.loader-ring {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--text-muted);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ─── RESULTS SCREEN ─── */
+#results-screen {
+  display: none;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  animation: fadeIn 0.6s ease both;
+}
+
+.results-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.results-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 0.7rem;
+  color: var(--text);
+}
+
+.results-header h2 em { font-style: italic; color: var(--accent); }
+
+.results-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ─── CAREER CARDS ─── */
+.career-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+  animation: slideUp 0.5s ease both;
+  box-shadow: var(--shadow-sm);
+}
+
+.career-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(139,105,20,0.15);
+}
+
+.career-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: var(--card-accent, var(--accent));
+  border-radius: 20px 0 0 20px;
+}
+
+.career-card:nth-child(1) { --card-accent: #8B6914; animation-delay: 0.05s; }
+.career-card:nth-child(2) { --card-accent: #2C5282; animation-delay: 0.12s; }
+.career-card:nth-child(3) { --card-accent: #276749; animation-delay: 0.19s; }
+.career-card:nth-child(4) { --card-accent: #9B2C2C; animation-delay: 0.26s; }
+.career-card:nth-child(5) { --card-accent: #553C9A; animation-delay: 0.33s; }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 1rem;
+}
+
+.card-rank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(0,0,0,0.04);
+  flex-shrink: 0;
+}
+
+.card-header { flex: 1; }
+
+.match-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.6rem;
+  background: rgba(139,105,20,0.07);
+  border: 1px solid rgba(139,105,20,0.18);
+  color: var(--accent);
+}
+
+.career-card:nth-child(2) .match-badge { background: rgba(44,82,130,0.06); border-color: rgba(44,82,130,0.18); color: var(--accent2); }
+.career-card:nth-child(3) .match-badge { background: rgba(39,103,73,0.06); border-color: rgba(39,103,73,0.18); color: var(--accent3); }
+
+.match-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; animation: blink 2s ease-in-out infinite; }
+
+.career-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.career-field {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+}
+
+.career-desc {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.rationale {
+  background: var(--surface2);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  border-left: 3px solid rgba(139,105,20,0.25);
+  margin-bottom: 1.3rem;
+}
+
+.career-card:nth-child(2) .rationale { border-left-color: rgba(44,82,130,0.3); }
+.career-card:nth-child(3) .rationale { border-left-color: rgba(39,103,73,0.3); }
+
+.rationale-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.rationale-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.tag {
+  padding: 0.3rem 0.75rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ─── ACTION BAR ─── */
+.action-bar {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.outline-btn {
+  padding: 0.8rem 1.8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.outline-btn:hover { border-color: var(--border-hover); color: var(--text); box-shadow: var(--shadow-md); }
+
+.save-btn {
+  padding: 0.8rem 1.8rem;
+  border: 1px solid rgba(39,103,73,0.25);
+  border-radius: 12px;
+  background: rgba(39,103,73,0.05);
+  color: var(--accent3);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.save-btn:hover { background: rgba(39,103,73,0.1); border-color: rgba(39,103,73,0.4); }
+.save-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--surface);
+  border: 1px solid rgba(39,103,73,0.25);
+  border-radius: 14px;
+  padding: 0.9rem 1.8rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast-icon { color: var(--accent3); font-size: 1rem; }
+
+/* ─── CONFIG BANNER ─── */
+.config-banner {
+  background: rgba(139,105,20,0.05);
+  border: 1px solid rgba(139,105,20,0.15);
+  border-radius: 14px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 2rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent);
+  line-height: 1.7;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+@keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  header { padding: 0 1.2rem; }
+  .header-center { display: none; }
+  .auth-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .auth-stats { gap: 1.5rem; }
+  #form-screen, #results-screen { padding: 2.5rem 1.2rem 5rem; }
+  .form-panel { padding: 1.8rem 1.5rem; }
+  .career-card { padding: 2rem 1.5rem; }
+  .action-bar { flex-wrap: wrap; }
+  .cta-wrap { flex-direction: column; align-items: stretch; }
+  .cta-note { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✦</span>
+  <span id="toast-msg">Saved to your profile</span>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">✦</div>
+    <div>
+      <div class="logo-text">Career<span>Align</span></div>
+      <div class="logo-badge">Career Intelligence</div>
+    </div>
+  </div>
+  <div class="header-center" id="header-center">Career Discovery Platform</div>
+  <div class="header-right" id="header-right"></div>
+</header>
+
+<div class="page">
+
+  <!-- ══ AUTH SCREEN ══ -->
+  <div id="auth-screen">
+    <div class="auth-layout">
+      <div class="auth-left">
+        <h1>
+          Discover where<br>
+          <em>your talents</em><br>
+          <strong>belong.</strong>
+        </h1>
+        <p>CareerAlign analyzes your education, skills, interests, and industry preferences to surface career paths that align with who you are — not just what you've done.</p>
+        <div class="auth-stats">
+          <div class="stat">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Career Paths</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Input Dimensions</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Personalized</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-card-title">Welcome back</div>
+        <div class="auth-card-sub">Sign in to access your career profile</div>
+
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab('login')">Sign In</div>
+          <div class="tab" onclick="switchTab('register')">Register</div>
+        </div>
+
+        <!-- Login -->
+        <div id="login-form">
+          <div class="field-group">
+            <label class="field-label">Email Address</label>
+            <input class="field-input" type="email" id="login-email" placeholder="you@example.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <input class="field-input" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')signInEmail()">
+          </div>
+          <button class="primary-btn" onclick="signInEmail()">Sign In →</button>
+
+          <div class="auth-error" id="login-error"></div>
+        </div>
+
+        <!-- Register -->
+        <div id="register-form" style="display:none">
+          <div class="field-group">
+            <label class="field-label">Full Name</label>
+            <input class="field-input" type="text" id="reg-name" placeholder="Jane Smith">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address</label>
+            <input class="field-input" type="email" id="reg-email" placeholder="you@example.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <input class="field-input" type="password" id="reg-password" placeholder="Min. 6 characters" onkeydown="if(event.key==='Enter')registerEmail()">
+          </div>
+          <button class="primary-btn" onclick="registerEmail()">Create Account →</button>
+
+          <div class="auth-error" id="reg-error"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FORM SCREEN ══ -->
+  <div id="form-screen">
+    <div class="history-bar" id="history-bar">
+      <div class="history-label">Recent searches</div>
+      <div class="history-pills" id="history-pills"></div>
+    </div>
+
+    <div class="page-header">
+      <div class="eyebrow">Career Discovery</div>
+      <h1>Tell us about<br><em>yourself.</em></h1>
+      <p>Answer four quick questions and we'll surface your top career matches with personalised rationale for each.</p>
+    </div>
+
+    <!-- Panel 1 -->
+    <div class="form-panel">
+      <div class="panel-num">01</div>
+      <div class="panel-tag">Education</div>
+      <div class="panel-title">What is your highest level of education?</div>
+      <div class="panel-sub">This helps us calibrate entry requirements for each career path.</div>
+      <div class="styled-select-wrap">
+        <select class="styled-select" id="education">
+          <option value="">Select education level</option>
+          <option value="highschool">High School / GED</option>
+          <option value="associate">Associate Degree</option>
+          <option value="bachelor">Bachelor's Degree</option>
+          <option value="master">Master's Degree</option>
+          <option value="phd">PhD / Doctorate</option>
+          <option value="bootcamp">Bootcamp / Certification</option>
+          <option value="selftaught">Self-Taught / No Formal Degree</option>
+        </select>
+        <div class="select-arrow">▾</div>
+      </div>
+      <div class="validation-msg" id="edu-error">⚠ Please select your education level</div>
+    </div>
+
+    <!-- Panel 2 -->
+    <div class="form-panel">
+      <div class="panel-num">02</div>
+      <div class="panel-tag">Interests</div>
+      <div class="panel-title">What topics genuinely excite you?</div>
+      <div class="panel-sub">Select up to 4 areas that naturally draw your attention and curiosity.</div>
+      <div class="chips" id="interests-grid">
+        <div class="chip" data-val="technology">Technology</div>
+        <div class="chip" data-val="art">Art & Design</div>
+        <div class="chip" data-val="science">Science</div>
+        <div class="chip" data-val="business">Business</div>
+        <div class="chip" data-val="people">Helping People</div>
+        <div class="chip" data-val="nature">Nature & Environment</div>
+        <div class="chip" data-val="writing">Writing & Media</div>
+        <div class="chip" data-val="math">Math & Numbers</div>
+        <div class="chip" data-val="teaching">Teaching & Mentoring</div>
+        <div class="chip" data-val="law">Law & Justice</div>
+        <div class="chip" data-val="health">Health & Medicine</div>
+        <div class="chip" data-val="social">Social Impact</div>
+        <div class="chip" data-val="sports">Sports & Fitness</div>
+        <div class="chip" data-val="travel">Travel & Culture</div>
+        <div class="chip" data-val="food">Food & Hospitality</div>
+      </div>
+      <div class="validation-msg" id="int-error">⚠ Please select at least one interest</div>
+    </div>
+
+    <!-- Panel 3 -->
+    <div class="form-panel">
+      <div class="panel-num">03</div>
+      <div class="panel-tag">Skills</div>
+      <div class="panel-title">What are your strongest abilities?</div>
+      <div class="panel-sub">Choose up to 5 skills you feel most confident in — natural or developed.</div>
+      <div class="chips" id="skills-grid">
+        <div class="chip" data-val="coding">Coding / Programming</div>
+        <div class="chip" data-val="communication">Communication</div>
+        <div class="chip" data-val="analysis">Data Analysis</div>
+        <div class="chip" data-val="creativity">Creativity</div>
+        <div class="chip" data-val="leadership">Leadership</div>
+        <div class="chip" data-val="research">Research</div>
+        <div class="chip" data-val="problemsolving">Problem Solving</div>
+        <div class="chip" data-val="empathy">Empathy / Listening</div>
+        <div class="chip" data-val="organization">Organization</div>
+        <div class="chip" data-val="sales">Sales / Persuasion</div>
+        <div class="chip" data-val="writing">Writing</div>
+        <div class="chip" data-val="design">Visual Design</div>
+        <div class="chip" data-val="handson">Hands-On / Manual</div>
+        <div class="chip" data-val="languages">Foreign Languages</div>
+      </div>
+      <div class="validation-msg" id="skill-error">⚠ Please select at least one skill</div>
+    </div>
+
+    <!-- Panel 4 -->
+    <div class="form-panel">
+      <div class="panel-num">04</div>
+      <div class="panel-tag">Industry</div>
+      <div class="panel-title">Which industries appeal to you most?</div>
+      <div class="panel-sub">Select up to 3 sectors where you'd find meaningful work.</div>
+      <div class="chips" id="industry-grid">
+        <div class="chip" data-val="tech">Tech & Software</div>
+        <div class="chip" data-val="healthcare">Healthcare</div>
+        <div class="chip" data-val="finance">Finance & Banking</div>
+        <div class="chip" data-val="education">Education</div>
+        <div class="chip" data-val="media">Media & Entertainment</div>
+        <div class="chip" data-val="nonprofit">Nonprofit & NGO</div>
+        <div class="chip" data-val="government">Government & Policy</div>
+        <div class="chip" data-val="retail">Retail & E-Commerce</div>
+        <div class="chip" data-val="manufacturing">Manufacturing</div>
+        <div class="chip" data-val="consulting">Consulting</div>
+        <div class="chip" data-val="law">Legal</div>
+        <div class="chip" data-val="environment">Environment & Energy</div>
+        <div class="chip" data-val="hospitality">Hospitality & Tourism</div>
+      </div>
+      <div class="validation-msg" id="ind-error">⚠ Please select at least one industry</div>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta-btn" onclick="handleSubmit()">
+        Generate My Career Map
+        <span style="font-size:1.1rem">→</span>
+      </button>
+      <div class="cta-note">Personalized to<br>your exact profile</div>
+    </div>
+  </div>
+
+  <!-- ══ LOADING ══ -->
+  <div id="loading" style="display:none;min-height:calc(100vh - 70px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:2rem;">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Analyzing your profile…</div>
+  </div>
+
+  <!-- ══ RESULTS SCREEN ══ -->
+  <div id="results-screen">
+    <div class="results-header">
+      <div class="eyebrow" style="margin-bottom:1rem">Your Career Intelligence Report</div>
+      <h2>Your <em>personalized</em><br>career matches.</h2>
+      <div class="results-meta" id="results-meta"></div>
+    </div>
+    <div id="career-cards"></div>
+    <div class="action-bar">
+      <button class="outline-btn" onclick="restart()">← New Assessment</button>
+      <button class="save-btn" id="save-btn" onclick="saveResults()">✦ Save to Profile</button>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+
+<!-- ══ FIREBASE — dynamic load with CDN fallback ══ -->
+<script>
+  function _loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  async function _initFirebase() {
+    const v = '10.12.2';
+    const base1 = `https://www.gstatic.com/firebasejs/${v}`;
+    const base2 = `https://cdn.jsdelivr.net/npm/firebase@${v}`;
+    try {
+      await _loadScript(`${base1}/firebase-app-compat.js`);
+      await _loadScript(`${base1}/firebase-auth-compat.js`);
+      await _loadScript(`${base1}/firebase-firestore-compat.js`);
+    } catch(_) {
+      try {
+        await _loadScript(`${base2}/firebase-app-compat.min.js`);
+        await _loadScript(`${base2}/firebase-auth-compat.min.js`);
+        await _loadScript(`${base2}/firebase-firestore-compat.min.js`);
+      } catch(err) {
+        document.getElementById('auth-screen').innerHTML = '<div style="text-align:center;padding:4rem;font-family:sans-serif;color:#6B6560"><div style="font-size:2rem;margin-bottom:1rem">⚠️</div><div style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem">Could not load authentication</div><div style="font-size:0.85rem">Please check your internet connection and refresh the page.</div></div>';
+        return;
+      }
+    }
+    _startApp();
+  }
+
+  _initFirebase();
+
+  function _startApp() {
+  // ── FIREBASE CONFIG ──────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyAEd2qZbRqA7AYybzwWuzlee76TkDIfMSg",
+    authDomain: "careeralign-1ef24.firebaseapp.com",
+    projectId: "careeralign-1ef24",
+    storageBucket: "careeralign-1ef24.firebasestorage.app",
+    messagingSenderId: "670018214557",
+    appId: "1:670018214557:web:081bc56e15bd16c1421274",
+    measurementId: "G-ZB19D2CMQD"
+  };
+
+  // ── INIT ─────────────────────────────────
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+  let currentUser = null;
+
+  // Use SESSION persistence to avoid localStorage issues
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(() => {});
+
+  // ── AUTH STATE ───────────────────────────
+  auth.onAuthStateChanged(async (user) => {
+    currentUser = user;
+    if (user) {
+      renderHeader(user);
+      showScreen('form');
+      await loadHistory(user.uid);
+    } else {
+      showScreen('auth');
+    }
+  });
+
+  // ── SCREEN SWITCHER ──────────────────────
+  function showScreen(screen) {
+    document.getElementById('auth-screen').style.display    = screen === 'auth'    ? 'flex'  : 'none';
+    document.getElementById('form-screen').style.display    = screen === 'form'    ? 'block' : 'none';
+    document.getElementById('loading').style.display        = screen === 'loading' ? 'flex'  : 'none';
+    document.getElementById('results-screen').style.display = screen === 'results' ? 'block' : 'none';
+    window._currentScreen = screen;
+  }
+  window._showScreen = showScreen;
+
+  // ── HEADER ───────────────────────────────
+  function renderHeader(user) {
+    const initials = user.displayName
+      ? user.displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+      : user.email[0].toUpperCase();
+    const avatarContent = user.photoURL ? `<img src="${user.photoURL}" alt="">` : initials;
+    document.getElementById('header-right').innerHTML = `
+      <div class="user-chip">
+        <div class="avatar">${avatarContent}</div>
+        <span style="font-size:0.78rem;font-weight:500">${user.displayName || user.email.split('@')[0]}</span>
+      </div>
+      <button class="icon-btn" onclick="signOut()" title="Sign out">⏻</button>
+    `;
+  }
+
+  // ── LOAD HISTORY ─────────────────────────
+  async function loadHistory(uid) {
+    try {
+      const snap = await db.collection('users').doc(uid).collection('sessions')
+        .orderBy('createdAt', 'desc').limit(5).get();
+      if (snap.empty) return;
+      const bar   = document.getElementById('history-bar');
+      const pills = document.getElementById('history-pills');
+      pills.innerHTML = '';
+      bar.style.display = 'block';
+      snap.forEach(d => {
+        const data = d.data();
+        const el = document.createElement('div');
+        el.className = 'history-pill';
+        el.textContent = `${(data.interests || []).slice(0, 2).join(', ')} · ${data.education || ''}`;
+        pills.appendChild(el);
+      });
+    } catch(e) { console.warn('History load failed:', e); }
+  }
+
+  // ── AUTH FUNCTIONS ────────────────────────
+  function signOut() {
+    auth.signOut();
+  }
+
+  async function signInEmail() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-password').value;
+    const err   = document.getElementById('login-error');
+    err.style.display = 'none';
+    try {
+      await auth.signInWithEmailAndPassword(email, pass);
+    } catch(e) {
+      err.textContent = friendlyError(e.code);
+      err.style.display = 'block';
+    }
+  }
+
+  async function registerEmail() {
+    const name  = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pass  = document.getElementById('reg-password').value;
+    const err   = document.getElementById('reg-error');
+    err.style.display = 'none';
+    try {
+      const cred = await auth.createUserWithEmailAndPassword(email, pass);
+      if (name) await cred.user.updateProfile({ displayName: name });
+      await db.collection('users').doc(cred.user.uid).set({ name, email, createdAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+    } catch(e) {
+      err.textContent = friendlyError(e.code);
+      err.style.display = 'block';
+    }
+  }
+
+  async function signInGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const errId = document.getElementById('login-form').style.display !== 'none' ? 'login-error' : 'reg-error';
+    const el = document.getElementById(errId);
+    el.style.display = 'none';
+    try {
+      const result = await auth.signInWithPopup(provider);
+      await db.collection('users').doc(result.user.uid).set({
+        name: result.user.displayName || '',
+        email: result.user.email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+    } catch(e) {
+      // If popup is blocked or fails, fall back to redirect
+      if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') {
+        const proto = window.location.protocol;
+        if (proto === 'http:' || proto === 'https:') {
+          try {
+            await auth.signInWithRedirect(provider);
+          } catch(e2) {
+            el.textContent = friendlyError(e2.code);
+            el.style.display = 'block';
+          }
+        } else {
+          el.textContent = 'Pop-up was blocked. Please allow pop-ups for this site and try again.';
+          el.style.display = 'block';
+        }
+      } else {
+        el.textContent = friendlyError(e.code);
+        el.style.display = 'block';
+        console.error('Google sign-in error code:', e.code, e.message);
+      }
+    }
+  }
+
+  // Handle redirect result on page load (only in supported environments)
+  const _protocol = window.location.protocol;
+  if (_protocol === 'http:' || _protocol === 'https:' || _protocol === 'chrome-extension:') {
+    auth.getRedirectResult().then(async (result) => {
+      if (result && result.user) {
+        await db.collection('users').doc(result.user.uid).set({
+          name: result.user.displayName || '',
+          email: result.user.email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+      }
+    }).catch((e) => {
+      // Silently ignore — redirect not used in this session
+    });
+  }
+
+  function friendlyError(code) {
+    const map = {
+      'auth/user-not-found':                      'No account found with that email.',
+      'auth/wrong-password':                      'Incorrect password. Please try again.',
+      'auth/email-already-in-use':                'Email already in use — try signing in.',
+      'auth/weak-password':                       'Password must be at least 6 characters.',
+      'auth/invalid-email':                       'Please enter a valid email address.',
+      'auth/popup-closed-by-user':                'Sign-in popup was closed. Please try again.',
+      'auth/cancelled-popup-request':             'Sign-in was cancelled. Please try again.',
+      'auth/popup-blocked':                       'Pop-up blocked by browser. Please allow pop-ups for this site.',
+      'auth/network-request-failed':              'Network error. Check your connection.',
+      'auth/invalid-credential':                  'Invalid email or password. Please try again.',
+      'auth/unauthorized-domain':                 'This domain is not authorised for Google sign-in. Please add it in Firebase Console → Authentication → Settings → Authorised domains.',
+      'auth/operation-not-supported-in-this-environment': 'Browser is blocking cookies/storage. Please go to your browser settings and enable cookies, then try again.',
+      'auth/internal-error':                      'An internal error occurred. Please try again.',
+      'auth/too-many-requests':                   'Too many attempts. Please wait a moment and try again.',
+      'auth/account-exists-with-different-credential': 'An account already exists with this email using a different sign-in method.',
+    };
+    return map[code] || ('Sign-in failed (' + (code || 'unknown') + '). Please try again.');
+  }
+
+  // ── SAVE RESULTS ─────────────────────────
+  async function saveResults() {
+    if (!currentUser || !window._lastResults) return;
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    try {
+      await db.collection('users').doc(currentUser.uid).collection('sessions').add({
+        education:       window._lastResults.edu,
+        interests:       window._lastResults.interests,
+        skills:          window._lastResults.skills,
+        industries:      window._lastResults.industries,
+        recommendations: window._lastResults.careers.map(c => ({ id: c.id, title: c.title, score: c.score })),
+        createdAt:       firebase.firestore.FieldValue.serverTimestamp()
+      });
+      btn.textContent = '✦ Saved';
+      showToast('Results saved to your profile');
+    } catch(e) {
+      console.error(e);
+      btn.disabled = false;
+      btn.textContent = '✦ Save to Profile';
+    }
+  }
+
+  // expose to global scope for onclick handlers
+  window.signInEmail   = signInEmail;
+  window.registerEmail = registerEmail;
+  window.signInGoogle  = signInGoogle;
+  window.saveResults   = saveResults;
+  window.signOut       = signOut;
+  } // end _startApp
+</script>
+
+<script>
+// ─── TAB SWITCHING ───
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
+  document.getElementById('login-form').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('register-form').style.display = tab==='register' ? 'block' : 'none';
+}
+
+// ─── CHIPS ───
+function setupChips(id, max) {
+  document.getElementById(id).querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const sel = [...document.querySelectorAll(`#${id} .chip.selected`)];
+      if (chip.classList.contains('selected')) { chip.classList.remove('selected'); return; }
+      if (sel.length >= max) sel[0].classList.remove('selected');
+      chip.classList.add('selected');
+    });
+  });
+}
+
+setupChips('interests-grid', 4);
+setupChips('skills-grid', 5);
+setupChips('industry-grid', 3);
+
+const getSelected = id => [...document.querySelectorAll(`#${id} .chip.selected`)].map(c => c.dataset.val);
+
+// ─── CAREER DATA ───
+const CAREERS = [
+  { id:'software-engineer', title:'Software Engineer', field:'Technology', description:'Design, build, and maintain software systems — from mobile apps to large-scale cloud infrastructure. In demand across virtually every sector of the modern economy.', matchInterests:['technology','math','science'], matchSkills:['coding','problemsolving','analysis'], matchIndustries:['tech','finance','healthcare','retail'], educationBoost:['bachelor','master','bootcamp','selftaught'], tags:['High Demand','Remote-Friendly','Strong Salary','Versatile'] },
+  { id:'data-scientist', title:'Data Scientist', field:'Analytics & AI', description:'Extract insights from complex datasets using statistics, machine learning, and visualization tools to inform critical business decisions and strategy.', matchInterests:['technology','math','science','business'], matchSkills:['analysis','coding','research','problemsolving'], matchIndustries:['tech','finance','healthcare','consulting'], educationBoost:['bachelor','master','phd'], tags:['Fast-Growing','Highly Analytical','Cross-Industry'] },
+  { id:'ux-designer', title:'UX / Product Designer', field:'Design & Technology', description:'Craft intuitive, beautiful digital experiences by deeply understanding user needs. Blend empathy, psychology, and visual design to shape how people interact with products.', matchInterests:['technology','art','people'], matchSkills:['creativity','design','empathy','research'], matchIndustries:['tech','media','retail','consulting'], educationBoost:['bachelor','associate','bootcamp','selftaught'], tags:['Creative','Human-Centered','Portfolio-Driven'] },
+  { id:'nurse', title:'Registered Nurse', field:'Healthcare', description:'Provide direct patient care, coordinate treatment plans, and serve as the backbone of medical teams. Diverse specializations from pediatrics to emergency and critical care.', matchInterests:['health','people','science','social'], matchSkills:['empathy','communication','problemsolving','handson'], matchIndustries:['healthcare'], educationBoost:['associate','bachelor'], tags:['Job Security','Purpose-Driven','High Demand'] },
+  { id:'teacher', title:'Educator / Teacher', field:'Education', description:'Shape the minds of future generations. Teach K-12 or higher education across subjects ranging from STEM to humanities, in traditional or online environments.', matchInterests:['teaching','people','social','writing'], matchSkills:['communication','empathy','creativity','leadership'], matchIndustries:['education','nonprofit'], educationBoost:['bachelor','master'], tags:['Meaningful Work','Stable Career','Community Impact'] },
+  { id:'marketing-manager', title:'Marketing Manager', field:'Marketing & Business', description:'Develop and execute strategies to reach customers, build brand equity, and drive sustainable growth — combining creative thinking with data-informed decision making.', matchInterests:['business','writing','art','technology'], matchSkills:['creativity','communication','sales','analysis'], matchIndustries:['tech','retail','media','consulting'], educationBoost:['bachelor','master'], tags:['Creative & Analytical','Fast-Paced','High Impact'] },
+  { id:'environmental-scientist', title:'Environmental Scientist', field:'Science & Sustainability', description:'Study ecosystems, analyze pollution impacts, and advise on environmental policy and sustainability strategy. Work at the intersection of science, policy, and business.', matchInterests:['nature','science','social','travel'], matchSkills:['research','analysis','problemsolving','writing'], matchIndustries:['environment','government','nonprofit'], educationBoost:['bachelor','master','phd'], tags:['Purpose-Driven','Research-Heavy','Growing Field'] },
+  { id:'lawyer', title:'Attorney / Lawyer', field:'Law & Justice', description:'Represent clients, interpret legislation, and advocate for justice across courts and corporate settings. Specializations include criminal, corporate, environmental, and civil law.', matchInterests:['law','social','people','business'], matchSkills:['communication','research','writing','problemsolving'], matchIndustries:['law','government','finance'], educationBoost:['master','phd'], tags:['Prestigious','Rigorous','High Impact'] },
+  { id:'financial-analyst', title:'Financial Analyst', field:'Finance & Banking', description:'Evaluate investment opportunities, build financial models, and guide critical business and capital decisions. Core to banking, investment management, and corporate strategy.', matchInterests:['math','business','technology'], matchSkills:['analysis','research','problemsolving','organization'], matchIndustries:['finance','consulting','tech'], educationBoost:['bachelor','master'], tags:['Strong Salary','Analytical','Competitive'] },
+  { id:'social-worker', title:'Social Worker', field:'Social Services', description:'Support individuals and communities through mental health crises, family adversity, and social inequity. Serve as advocate, counselor, and connector of resources.', matchInterests:['people','social','teaching','health'], matchSkills:['empathy','communication','organization','leadership'], matchIndustries:['nonprofit','government','healthcare','education'], educationBoost:['bachelor','master'], tags:['Deeply Meaningful','Community Impact','Rewarding'] },
+  { id:'journalist', title:'Journalist / Content Strategist', field:'Media & Communications', description:'Investigate, report, and tell stories that inform and shape public discourse. Work across digital, broadcast, and independent platforms — or build your own audience.', matchInterests:['writing','travel','social','law','art'], matchSkills:['writing','communication','research','creativity'], matchIndustries:['media','nonprofit','government'], educationBoost:['bachelor','associate','selftaught'], tags:['Storytelling','Flexible','Purpose-Driven'] },
+  { id:'product-manager', title:'Product Manager', field:'Technology & Strategy', description:'Bridge engineering, design, and business to build products that create real value. Define strategy, prioritize what gets built, and align cross-functional teams around a vision.', matchInterests:['technology','business','people'], matchSkills:['leadership','communication','analysis','problemsolving'], matchIndustries:['tech','finance','retail','consulting'], educationBoost:['bachelor','master','bootcamp'], tags:['Strategic','Cross-Functional','High Ownership'] },
+  { id:'chef', title:'Chef / Culinary Director', field:'Food & Hospitality', description:'Create memorable dining experiences through culinary artistry and technique. From restaurant kitchens to food product development, blend creativity, business acumen, and craft.', matchInterests:['food','art','business','travel'], matchSkills:['creativity','handson','leadership','organization'], matchIndustries:['hospitality','retail','media'], educationBoost:['highschool','associate','bootcamp','selftaught'], tags:['Creative','Hands-On','Entrepreneurial'] },
+  { id:'physical-therapist', title:'Physical Therapist', field:'Healthcare & Wellness', description:'Help patients recover from injury and reclaim physical function. Combine clinical knowledge with motivational coaching in hospital, sports, or outpatient settings.', matchInterests:['health','sports','people','science'], matchSkills:['empathy','handson','communication','problemsolving'], matchIndustries:['healthcare'], educationBoost:['master','phd'], tags:['Hands-On','Growing Demand','Patient-Centered'] },
+  { id:'entrepreneur', title:'Entrepreneur / Startup Founder', field:'Business & Innovation', description:'Build something from nothing — identify real problems, create value, and lead a team through the unpredictable journey of building a business. High risk, high reward.', matchInterests:['business','technology','art','social'], matchSkills:['leadership','creativity','sales','problemsolving'], matchIndustries:['tech','retail','consulting','media'], educationBoost:['bachelor','master','selftaught','bootcamp'], tags:['High Reward','Autonomous','Innovative'] },
+];
+
+function score(career, edu, interests, skills, industries) {
+  let s = 0;
+  interests.forEach(i => { if (career.matchInterests.includes(i)) s += 3; });
+  skills.forEach(k => { if (career.matchSkills.includes(k)) s += 2; });
+  industries.forEach(n => { if (career.matchIndustries.includes(n)) s += 2; });
+  if (career.educationBoost.includes(edu)) s += 1;
+  return s;
+}
+
+function rationale(career, edu, interests, skills, industries) {
+  const skillMap = { coding:'programming', communication:'communication', analysis:'analytical thinking', creativity:'creative thinking', leadership:'leadership', research:'research', problemsolving:'problem-solving', empathy:'empathy & listening', organization:'organizational thinking', sales:'persuasion', writing:'writing', design:'visual design', handson:'hands-on aptitude', languages:'multilingual ability' };
+  const mi = interests.filter(i => career.matchInterests.includes(i));
+  const ms = skills.filter(s => career.matchSkills.includes(s));
+  const mn = industries.filter(i => career.matchIndustries.includes(i));
+  const parts = [];
+  if (mi.length) parts.push(`your interest in ${mi.map(i=>i.replace(/-/g,' ')).join(' and ')} aligns directly with what this role demands day-to-day`);
+  if (ms.length) parts.push(`your abilities in ${ms.map(s=>skillMap[s]||s).join(' and ')} are core competencies in this position`);
+  if (mn.length) parts.push(`your interest in the ${mn[0].replace(/-/g,' ')} sector puts you exactly where this career operates`);
+  if (career.educationBoost.includes(edu)) parts.push(`your educational background provides a solid entry point into this field`);
+  if (!parts.length) return 'This career offers a strong overall fit based on your unique profile and values.';
+  const last = parts.pop();
+  return parts.length ? `This matches well because ${parts.join(', ')}, and ${last}.` : `This is a strong match because ${last}.`;
+}
+
+// ─── SUBMIT ───
+window.handleSubmit = function() {
+  const edu = document.getElementById('education').value;
+  const interests = getSelected('interests-grid');
+  const skills = getSelected('skills-grid');
+  const industries = getSelected('industry-grid');
+
+  let ok = true;
+  const v = (id, show) => { document.getElementById(id).style.display = show ? 'block' : 'none'; if (show) ok = false; };
+  v('edu-error', !edu);
+  v('int-error', !interests.length);
+  v('skill-error', !skills.length);
+  v('ind-error', !industries.length);
+  if (!ok) return;
+
+  const results = CAREERS.map(c => ({ ...c, score: score(c, edu, interests, skills, industries), rationale: rationale(c, edu, interests, skills, industries) })).sort((a,b) => b.score - a.score).slice(0,5);
+  window._lastResults = { edu, interests, skills, industries, careers: results };
+
+  if (window._showScreen) window._showScreen('loading');
+  else {
+    document.getElementById('form-screen').style.display = 'none';
+    document.getElementById('loading').style.display = 'flex';
+  }
+
+  setTimeout(() => {
+    if (window._showScreen) window._showScreen('results');
+    else {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('results-screen').style.display = 'block';
+    }
+    renderResults(results, edu, interests);
+  }, 1200);
+};
+
+function renderResults(results, edu, interests) {
+  const meta = `${edu} education  ·  interests: ${interests.slice(0,3).map(i=>i[0].toUpperCase()+i.slice(1)).join(', ')}${interests.length>3?'…':''}`;
+  document.getElementById('results-meta').textContent = meta;
+
+  const wrap = document.getElementById('career-cards');
+  wrap.innerHTML = '';
+
+  results.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'career-card';
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-header">
+          <div class="match-badge"><span class="match-dot"></span>Match 0${i+1}</div>
+          <div class="career-title">${c.title}</div>
+          <div class="career-field">${c.field}</div>
+        </div>
+        <div class="card-rank">0${i+1}</div>
+      </div>
+      <div class="career-desc">${c.description}</div>
+      <div class="rationale">
+        <div class="rationale-label">Why this fits you</div>
+        <div class="rationale-text">${c.rationale.charAt(0).toUpperCase()+c.rationale.slice(1)}</div>
+      </div>
+      <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    `;
+    wrap.appendChild(card);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.restart = function() {
+  document.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+  document.getElementById('education').value = '';
+  ['edu-error','int-error','skill-error','ind-error'].forEach(id => document.getElementById(id).style.display='none');
+  const saveBtn = document.getElementById('save-btn');
+  saveBtn.disabled = false; saveBtn.textContent = '✦ Save to Profile';
+
+  if (window._showScreen) window._showScreen('form');
+  else {
+    document.getElementById('results-screen').style.display = 'none';
+    document.getElementById('form-screen').style.display = 'block';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+function showToast(msg) {
+  document.getElementById('toast-msg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+window.showToast = showToast;
+</script>
+</body>
+</html>
